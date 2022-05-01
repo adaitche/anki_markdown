@@ -1,0 +1,37 @@
+.card {
+  font-family: arial;
+  font-size: 20px;
+  color: black;
+  background-color: white;
+  text-align: left;
+}
+
+.markdown {
+  visibility: hidden;
+}
+
+code {
+  font-size: 0.9em;
+  background-color: #e8e8e8;
+}
+
+pre code {
+  border: 1px solid #999;
+  display: block;
+  padding: 0.6em;
+  overflow: auto;
+}
+
+code:not(pre *) {
+  padding: 2px;
+  color: #d63384;
+}
+
+.cloze {
+  font-weight: bold;
+  color: blue;
+}
+
+.nightMode .cloze {
+  color: lightblue;
+}
