@@ -108,6 +108,11 @@ if (!amd) {
           ["$$", "$$"],
           ["\\[", "\\]"],
         ];
+        MathJax.config.tex["macros"] = {
+          d: ["{\\mathop{}\\!\\!\\mathrm{d}#1\\,}", 1],
+          P: ["{\\mathbb{P}\\!\\left[#1 \\right]}", 1],
+          PP: ["{\\mathbb{P}\\!\\left[#1\\middle| #2 \\right]}", 2],
+        };
         MathJax.startup.getComponents();
         this.didAdjustMathJax = true;
       }
