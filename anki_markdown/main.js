@@ -113,6 +113,20 @@ if (!amd) {
           P: ["{\\mathbb{P}\\!\\left[#1 \\right]}", 1],
           PP: ["{\\mathbb{P}\\!\\left[#1\\middle| #2 \\right]}", 2],
         };
+        // TODO: The code below doesn't seem to help. Need to debug futher,
+        // the font is loaded here: https://github.com/ankitects/anki/blob/96a9dba67d4021ac8dda113eea617d0bc7fbf7e8/build/configure/src/web.rs#L532
+        //
+        // MathJax.loader = {
+        //   load: [
+        //     "[tex]noerrors",
+        //     "[tex]mathtools",
+        //     "[tex]mhchem",
+        //     "[tex]boldsymbol",
+        //   ],
+        //   paths: {
+        //     mathjax: "/_anki/js/vendor/mathjax",
+        //   },
+        // };
         MathJax.startup.getComponents();
         this.didAdjustMathJax = true;
       }
