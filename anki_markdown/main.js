@@ -112,6 +112,12 @@ if (!amd) {
           d: ["{\\mathop{}\\!\\!\\mathrm{d}#1\\,}", 1],
           P: ["{\\mathbb{P}\\!\\left[#1 \\right]}", 1],
           PP: ["{\\mathbb{P}\\!\\left[#1\\middle| #2 \\right]}", 2],
+          E: ["{\\mathbb{E}\\!\\left[#1 \\right]}", 1],
+          EE: ["{\\mathbb{E}\\!\\left[#1\\middle| #2 \\right]}", 2],
+          V: ["{\\mathbb{V}\\!\\left[#1 \\right]}", 1],
+          VV: ["{\\mathbb{V}\\!\\left[#1\\middle| #2 \\right]}", 2],
+          C: ["{\\mathbb{Cov}\\!\\left[#1, #2\\right]}", 2],
+          CC: ["{\\mathbb{Cov}\\!\\left[#1, #2\\middle| #3 \\right]}", 3],
         };
         // TODO: The code below doesn't seem to help. Need to debug futher,
         // the font is loaded here: https://github.com/ankitects/anki/blob/96a9dba67d4021ac8dda113eea617d0bc7fbf7e8/build/configure/src/web.rs#L532
