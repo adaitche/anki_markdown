@@ -87,9 +87,6 @@ def create_notetypes():
             template["qfmt"] = t_spec["qfmt"]
             template["afmt"] = t_spec["afmt"]
 
-        for field in notetype["flds"]:
-            field["plainText"] = True
-
         notetype["css"] = nt_spec["css"]
 
         if is_new:
@@ -162,6 +159,8 @@ def add_preview(js, note, _):
 
     # import pdb; pdb.set_trace()
     css = nt["css"]
+    fields = sorted(nt["flds"], key=lambda x: x["ord"])
+    field_names = [f["name"] for f in fields]
 
     js += f"""
         const style = document.createElement("style")
@@ -170,7 +169,8 @@ def add_preview(js, note, _):
 
         const script = document.createElement("script");
         script.onload = function () {{
-          amd.addPreview({PREVIEW_ELEMENT_ID!r});
+          amd.enableHTMLEditor();
+          amd.addPreview({PREVIEW_ELEMENT_ID!r}, {field_names!r});
         }};
         script.src = "{FILENAME_PREFIX}main.js";
         document.head.appendChild(script);

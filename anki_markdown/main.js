@@ -160,7 +160,7 @@ if (!amd) {
       }
     },
 
-    addPreview(previewID) {
+    addPreview(previewID, fieldNames = []) {
       const update = this.updatePreview.bind(this);
 
       if (!document.getElementById(previewID)) {
@@ -174,9 +174,11 @@ if (!amd) {
         preview.style.borderRadius = "5px";
         this.preview = preview;
 
-        document.querySelector(".note-editor .fields").appendChild(preview);
+        document.querySelector(".fields-editor>.fields").appendChild(preview);
         document.addEventListener("keyup", update);
       }
+
+      this.preview.fieldNames = fieldNames;
       setTimeout(update, 100);
     },
 
@@ -193,6 +195,27 @@ if (!amd) {
       this.preview.classList.add("markdown");
       this.preview.innerHTML = markdownTexts.join("\n\n---\n\n");
       amd.render();
+    },
+
+    enableHTMLEditor() {
+      document
+        .querySelectorAll(".plain-text-input .CodeMirror")
+        .forEach((editor, idx) => {
+          editor.CodeMirror.setOption("lineNumbers", false);
+        });
+
+      // This approach is pretty brittle :'(
+      for (const el of document.querySelectorAll(
+        "span[title*='Toggle Visual Editor']"
+      )) {
+        if (el.querySelector("svg#mdi-eye-outline")) {
+          // disable Visual editor
+          el.click();
+
+          // enable HTML editor
+          el.parentElement.parentElement.nextElementSibling.click();
+        }
+      }
     },
 
     convertHTMLtoText() {

@@ -1,7 +1,3 @@
-# Supported Anki Versions
-
-- 2.1.56
-
 # Installation
 
 1. Clone this repo to some directory
