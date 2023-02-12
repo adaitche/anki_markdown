@@ -152,7 +152,10 @@ if (!amd) {
 
         // workaround for Anki auto-converting < to &lt;
         // if we don't do the replacement &lt; will be shown in code blocks
-        const text = el.innerHTML.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+        const text = el.innerHTML
+          .replace(/&lt;/g, "<")
+          .replace(/&gt;/g, ">")
+          .replace(/&amp;/g, "&");
 
         el.innerHTML = this.markdownItInstance.render(text);
         el.classList.remove("markdown");
