@@ -133,6 +133,8 @@ if (!amd) {
         //     mathjax: "/_anki/js/vendor/mathjax",
         //   },
         // };
+        MathJax.config.options = {};
+        MathJax.config.options.ignoreHtmlClass = "markdown";
         MathJax.startup.getComponents();
         this.didAdjustMathJax = true;
       }
@@ -144,21 +146,38 @@ if (!amd) {
       await promises;
     },
 
+    // workaround for Anki auto-converting < to &lt;
+    // if we don't do the replacement &lt; will be shown in code blocks
+    undoHTMLEncoding: function (string) {
+      return string
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&amp;/g, "&");
+    },
+
     render: async function () {
       await this.initialSetup();
 
       for (const el of document.querySelectorAll(".markdown")) {
+        // prevent Mathjax from rendering inside code blocks, by wrapping them
+        // in <code> tags
+        el.innerHTML = this.undoHTMLEncoding(el.innerHTML).replace(
+          /(```|`)[^`]*(```|`)/g,
+          "<code>$&</code>"
+        );
+
+        el.classList.remove("markdown");
+        MathJax.typesetClear([el]);
         MathJax.typeset([el]);
 
-        // workaround for Anki auto-converting < to &lt;
-        // if we don't do the replacement &lt; will be shown in code blocks
-        const text = el.innerHTML
-          .replace(/&lt;/g, "<")
-          .replace(/&gt;/g, ">")
-          .replace(/&amp;/g, "&");
+        // remove the wrapping into <code> tags
+        const text = this.undoHTMLEncoding(el.innerHTML).replace(
+          /<code>((```|`)[^`]*(```|`))<\/code>/g,
+          "$1"
+        );
 
         el.innerHTML = this.markdownItInstance.render(text);
-        el.classList.remove("markdown");
+
         mermaid.init(undefined, el.querySelectorAll(".mermaid"));
       }
     },
@@ -209,7 +228,7 @@ if (!amd) {
 
       // This approach is pretty brittle :'(
       for (const el of document.querySelectorAll(
-        "span[title*='Toggle Visual Editor']",
+        "span[title*='Toggle Visual Editor']"
       )) {
         if (el.querySelector("svg#mdi-eye-outline")) {
           // disable Visual editor
@@ -226,7 +245,7 @@ if (!amd) {
         .querySelectorAll(".plain-text-input .CodeMirror")
         .forEach((editor, idx) => {
           editor.CodeMirror.setValue(
-            this.replaceHTMLElements(editor.CodeMirror.getValue()),
+            this.replaceHTMLElements(editor.CodeMirror.getValue())
           );
         });
     },
