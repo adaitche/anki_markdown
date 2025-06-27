@@ -13,6 +13,7 @@
 code {
   font-size: 0.9em;
   background-color: #e8e8e8;
+  tab-size: 4;
 }
 
 pre code {
