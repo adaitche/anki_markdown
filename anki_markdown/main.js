@@ -110,6 +110,7 @@ if (!amd) {
         ];
         MathJax.config.tex["macros"] = {
           d: ["{\\mathop{}\\!\\!\\mathrm{d}#1\\,}", 1],
+          dd: ["{\\mathop{}\\!\\!\\mathrm{d}^{#1} #2\\,}", 2],
           P: ["{\\mathrm{P}\\!\\left(#1 \\right)}", 1],
           PP: ["{\\mathrm{P}\\!\\left(#1\\middle| #2 \\right)}", 2],
           E: ["{\\mathrm{E}\\!\\left(#1 \\right)}", 1],
