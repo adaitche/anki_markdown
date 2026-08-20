@@ -115,10 +115,23 @@ if (!amd) {
           PP: ["{\\mathrm{P}\\!\\left(#1\\middle| #2 \\right)}", 2],
           E: ["{\\mathrm{E}\\!\\left(#1 \\right)}", 1],
           EE: ["{\\mathrm{E}\\!\\left(#1\\middle| #2 \\right)}", 2],
+
           V: ["{\\mathrm{V}\\!\\left(#1 \\right)}", 1],
           VV: ["{\\mathrm{V}\\!\\left(#1\\middle| #2 \\right)}", 2],
+          Vh: ["{\\hat{\\mathrm{V}}\\!\\left(#1 \\right)}", 1],
+          Var: ["{\\mathrm{Var}\\!\\left(#1 \\right)}", 1],
+          Varh: ["{\\widehat{\\mathrm{Var}}\\!\\left(#1 \\right)}", 1],
+          VVar: ["{\\mathrm{Var}\\!\\left(#1\\middle| #2 \\right)}", 2],
+
           C: ["{\\mathrm{Cov}\\!\\left(#1, #2\\right)}", 2],
+          c: ["{\\mathrm{Cov}\\!\\left(#1\\right)}", 1],
+          Ch: ["{\\widehat{\\mathrm{Cov}}\\!\\left(#1, #2 \\right)}", 2],
           CC: ["{\\mathrm{Cov}\\!\\left(#1, #2\\middle| #3 \\right)}", 3],
+          cc: ["{\\mathrm{Cov}\\!\\left(#1\\middle| #2 \\right)}", 2],
+
+          vec: ["{\\boldsymbol{#1}}", 1],
+          v: ["{\\boldsymbol{#1}}", 1],
+          bm: ["{\\boldsymbol{#1}}", 1],
         };
         // TODO: The code below doesn't seem to help. Need to debug futher,
         // the font is loaded here: https://github.com/ankitects/anki/blob/96a9dba67d4021ac8dda113eea617d0bc7fbf7e8/build/configure/src/web.rs#L532
@@ -164,7 +177,7 @@ if (!amd) {
         // in <code> tags
         el.innerHTML = this.undoHTMLEncoding(el.innerHTML).replace(
           /(```|`)[^`]*(```|`)/g,
-          "<code>$&</code>"
+          "<code>$&</code>",
         );
 
         el.classList.remove("markdown");
@@ -174,7 +187,7 @@ if (!amd) {
         // remove the wrapping into <code> tags
         const text = this.undoHTMLEncoding(el.innerHTML).replace(
           /<code>((```|`)[^`]*(```|`))<\/code>/g,
-          "$1"
+          "$1",
         );
 
         el.innerHTML = this.markdownItInstance.render(text);
@@ -229,7 +242,7 @@ if (!amd) {
 
       // This approach is pretty brittle :'(
       for (const el of document.querySelectorAll(
-        "span[title*='Toggle Visual Editor']"
+        "span[title*='Toggle Visual Editor']",
       )) {
         if (el.querySelector("svg#mdi-eye-outline")) {
           // disable Visual editor
@@ -246,7 +259,7 @@ if (!amd) {
         .querySelectorAll(".plain-text-input .CodeMirror")
         .forEach((editor, idx) => {
           editor.CodeMirror.setValue(
-            this.replaceHTMLElements(editor.CodeMirror.getValue())
+            this.replaceHTMLElements(editor.CodeMirror.getValue()),
           );
         });
     },
